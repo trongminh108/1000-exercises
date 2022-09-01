@@ -4,6 +4,8 @@
 
 
 
+
+
 def BT64_Show(string):
     list_nums = list(string+"@")
     res = []
@@ -16,6 +18,9 @@ def BT64_Show(string):
             while list_nums[i+1].isnumeric() or list_nums[i+1].lower() == "x":
                 i += 1
                 res[count] += list_nums[i].lower()
+        if list_nums[i] in "+-":
+            count += 1
+            res.append(list_nums[i])
         i += 1
     return Solution(res)
 
@@ -26,8 +31,8 @@ def Solution(parameters):
         if "x" in num:
             a = int(num[:-1])
         else:
-            bc.append(int(num))
-    b = bc[0] - bc[1]
+            bc.append(num)
+    b = eval("".join(bc[:-1]))
     return -b/a
 
 if __name__ == "__main__":
