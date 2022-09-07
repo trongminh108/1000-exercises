@@ -1,46 +1,43 @@
 """
-64. Giải phương trình ax + b = 0.
+65. Giải phương trình ax^2 + bx + c = 0
 """
 
+from math import sqrt
 
 
-
-
-def BT64_Show(string):
-    list_nums = list(string+"@")
-    res = []
-    count = -1
-    i = 0
-    while i < len(list_nums):
-        if list_nums[i].isnumeric():
-            res.append(list_nums[i])
-            count += 1
-            while list_nums[i+1].isnumeric() or list_nums[i+1].lower() == "x":
-                i += 1
-                res[count] += list_nums[i].lower()
-        if list_nums[i] in "+-":
-            count += 1
-            res.append(list_nums[i])
-        i += 1
-    return Solution(res)
-
-def Solution(parameters):
-    bc = []
-    a = 0
-    for num in parameters:
-        if "x" in num:
-            a = int(num[:-1])
+def BT65_Show(a, b, c):
+    if a == 0:
+        if b == 0:
+            if c == 0:
+                return "has infinitely many solutions"    
+            else:
+                return "has no solution"
         else:
-            bc.append(num)
-    b = eval("".join(bc[:-1]))
-    return -b/a
+            return -c/b
+    else:
+        delta = b*b - 4*a*c
+        if delta < 0:
+            return " has no solution"
+        else:
+            x1 = (-b+sqrt(delta))/(2*a)
+            x2 = (-b-sqrt(delta))/(2*a)
+
+        if x1 == x2:
+            return x1
+        return x1, x2
+
 
 if __name__ == "__main__":
     while True:
         try:
-            string = input("Enter your first degree equation: ")
+            a, b, c = (map(int, input("Enter your parameters second degree equation: ").split(" ")))
             break
         except:
             print("\nTry Again!")
 
-    print(f"The result x of {string} is x = {BT64_Show(string)}")
+    res = BT65_Show(a, b, c)
+    equation = f"{a}x^2 + {b}x + {c} = 0"
+    if type(res) == str:
+        print(f"The equation {equation} {res}")
+    else:
+        print(f"The equation {equation} has solution: {res}")
